@@ -25,7 +25,7 @@ function readFiles(path: string): Promise<string[]> {
 
 async function exportAll(path: string): Promise<Modules> {
   const modules: any = {};
-  const paths = await readFiles(path);
+  const paths = await readFiles(`${path}/..`);
 
   const jsFiles = paths.filter((fileName: string): boolean => {
     return !fileName.startsWith(".") && fileName.endsWith(".js");
