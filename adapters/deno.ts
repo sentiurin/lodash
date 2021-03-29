@@ -22,9 +22,9 @@ function readFiles(path: string): Promise<string[]> {
   });
 }
 
-async function exportAll(path: string): Promise<Modules> {
+async function exportAll(): Promise<Modules> {
   const modules: any = {};
-  const paths = await readFiles(path);
+  const paths = await readFiles(".");
 
   const jsFiles = paths.filter((fileName: string): boolean => {
     return !fileName.startsWith(".") && fileName.endsWith(".js");
@@ -45,4 +45,4 @@ async function exportAll(path: string): Promise<Modules> {
   return modules;
 }
 
-export default exportAll(".");
+export default exportAll;
