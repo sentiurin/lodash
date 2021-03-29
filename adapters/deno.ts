@@ -3,6 +3,8 @@ type Modules = { [key: string]: any };
 // Will contain trailing slash
 const __dirname = new URL('.', import.meta.url).pathname;
 
+console.log(__dirname);
+
 function readFiles(path: string): Promise<string[]> {
   return new Promise(async (resolve, reject) => {
     const paths: string[] = [];
