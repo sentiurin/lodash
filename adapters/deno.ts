@@ -1,8 +1,9 @@
 type Modules = { [key: string]: any };
 
+// Will contain trailing slash
+const __dirname = new URL('.', import.meta.url).pathname;
+
 function readFiles(path: string): Promise<string[]> {
-  console.debug(path);
-  
   return new Promise(async (resolve, reject) => {
     const paths: string[] = [];
 
@@ -16,15 +17,13 @@ function readFiles(path: string): Promise<string[]> {
       reject(exception);
     }
 
-    console.debug(paths);
-
     resolve(paths);
   });
 }
 
-async function exportAll(): Promise<Modules> {
+async function exportAll(path: string): Promise<Modules> {
   const modules: any = {};
-  const paths = await readFiles(".");
+  const paths = await readFiles(path);
 
   const jsFiles = paths.filter((fileName: string): boolean => {
     return !fileName.startsWith(".") && fileName.endsWith(".js");
@@ -40,9 +39,7 @@ async function exportAll(): Promise<Modules> {
     })
   );
 
-  console.debug(modules);
-
   return modules;
 }
 
-export default exportAll;
+export default exportAll(__dirname);
